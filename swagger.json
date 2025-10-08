@@ -501,6 +501,248 @@
         }
       }
     },
+    "/attractions/{id}/incidents": {
+      "put": {
+        "tags": [
+          "Attraction"
+        ],
+        "summary": "Agrega un incidente a una atraccion.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El ID (GUID) de la atracción destino.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "El incidente a agregar.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Incidente agregado existosamente.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Si la atracción no existe.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Administrador.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Attraction"
+        ],
+        "summary": "Elimina un incidente de la atraccion.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El ID (GUID) de la atraccion destino.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "El incidente a eliminar.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IncidentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Incidente eliminado exitosamente.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoContentResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoContentResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoContentResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Si la atracción no existe.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Admin.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/attractions/{id}/visitors": {
       "get": {
         "tags": [
@@ -1089,7 +1331,24 @@
         ],
         "responses": {
           "204": {
-            "description": "Evento eliminado exitosamente."
+            "description": "Evento eliminado exitosamente.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoContentResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoContentResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NoContentResult"
+                }
+              }
+            }
           },
           "404": {
             "description": "Si el evento no existe.",
@@ -1371,7 +1630,24 @@
         ],
         "responses": {
           "200": {
-            "description": "Atracción añadida al evento correctamente."
+            "description": "Atracción añadida al evento correctamente.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              }
+            }
           },
           "404": {
             "description": "Si el evento o la atracción no existen.",
@@ -1464,7 +1740,24 @@
         ],
         "responses": {
           "200": {
-            "description": "Atracción quitada del evento correctamente."
+            "description": "Atracción quitada del evento correctamente.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkObjectResult"
+                }
+              }
+            }
           },
           "404": {
             "description": "Si el evento o la atracción no existen.",
@@ -2705,6 +2998,13 @@
           },
           "description": {
             "type": "string",
+            "nullable": true
+          },
+          "incidents": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
             "nullable": true
           }
         },
@@ -4066,6 +4366,16 @@
         },
         "additionalProperties": false
       },
+      "IncidentRequest": {
+        "type": "object",
+        "properties": {
+          "incident": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "IntPtr": {
         "type": "object",
         "additionalProperties": false
@@ -4674,6 +4984,16 @@
         },
         "additionalProperties": false
       },
+      "NoContentResult": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
       "Oid": {
         "type": "object",
         "properties": {
@@ -4683,6 +5003,37 @@
           },
           "friendlyName": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OkObjectResult": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "nullable": true
+          },
+          "formatters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IOutputFormatter"
+            },
+            "nullable": true
+          },
+          "contentTypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "declaredType": {
+            "$ref": "#/components/schemas/Type"
+          },
+          "statusCode": {
+            "type": "integer",
+            "format": "int32",
             "nullable": true
           }
         },
