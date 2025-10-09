@@ -801,6 +801,113 @@
             "description": "Si no se encuentra un atraccion con ese ID."
           }
         }
+      },
+      "post": {
+        "tags": [
+          "AttractionControl"
+        ],
+        "summary": "Registra la entrada de un visitante a una atracción.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El ID (GUID) de la atracción.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "byTicket",
+            "in": "query",
+            "description": "Booleano que permite elegir entre entrar usando el qr del ticket (true) o usando el id del usuario (false).",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "El QR (GUID) del ticket o el ID (GUID) del visitante a entrar.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/IdRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Entrada registrada exitosamente."
+          },
+          "400": {
+            "description": "Si el visitante no cumple los requisitos (ej. edad)."
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Operador."
+          },
+          "404": {
+            "description": "Si la atracción, el ticket o el visitante no existen."
+          },
+          "409": {
+            "description": "Si la atraccion tiene incidentes o esta llena."
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AttractionControl"
+        ],
+        "summary": "Registra la salida de un visitante de una atracción con su id.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El ID (GUID) de la atracción.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Salida registrada exitosamente."
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Operador."
+          },
+          "404": {
+            "description": "Si no se encuentra un atraccion con ese ID."
+          }
+        }
       }
     },
     "/attractions/{id}/reports": {
@@ -844,95 +951,6 @@
         "responses": {
           "200": {
             "description": "Success"
-          },
-          "401": {
-            "description": "Si el usuario no está autenticado."
-          },
-          "403": {
-            "description": "Si el usuario no tiene el rol de Operador."
-          },
-          "404": {
-            "description": "Si no se encuentra un atraccion con ese ID."
-          }
-        }
-      }
-    },
-    "/attractions/{id}/visitors/{userId}": {
-      "post": {
-        "tags": [
-          "AttractionControl"
-        ],
-        "summary": "Registra la entrada de un visitante a una atracción.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "El ID (GUID) de la atracción.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "El ID (GUID) del visitante.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Entrada registrada exitosamente."
-          },
-          "400": {
-            "description": "Si el visitante no cumple los requisitos (ej. edad) o la atracción está llena."
-          },
-          "404": {
-            "description": "Si la atracción o el visitante no existen."
-          },
-          "401": {
-            "description": "Si el usuario no está autenticado."
-          },
-          "403": {
-            "description": "Si el usuario no tiene el rol de Operador."
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "AttractionControl"
-        ],
-        "summary": "Registra la salida de un visitante de una atracción.",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "El ID (GUID) de la atracción.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          {
-            "name": "userId",
-            "in": "path",
-            "description": "El ID (GUID) del visitante.",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Salida registrada exitosamente."
           },
           "401": {
             "description": "Si el usuario no está autenticado."
@@ -4352,6 +4370,16 @@
         "properties": {
           "actionContext": {
             "$ref": "#/components/schemas/ActionContext"
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdRequest": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
           }
         },
         "additionalProperties": false
