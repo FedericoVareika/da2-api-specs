@@ -12,6 +12,18 @@
           "Attraction"
         ],
         "summary": "Obtiene una lista de todas las atracciones.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Devuelve la lista de todas atracciones.",
@@ -48,13 +60,31 @@
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
           "Attraction"
         ],
         "summary": "Crea una nueva atracción.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "requestBody": {
           "description": "Datos de la nueva atracción.\r\nEl tipo de attraccion debe ser uno de:\r\n['Rollercoaster', 'Simulator', 'Show', 'InteractiveZone'].",
           "content": {
@@ -77,7 +107,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -96,19 +126,24 @@
               }
             }
           },
-          "201": {
-            "description": "Atracción creada exitosamente."
-          },
-          "400": {
-            "description": "Si los datos proporcionados son inválidos."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
+          },
+          "201": {
+            "description": "Atracción creada exitosamente."
+          },
+          "400": {
+            "description": "Si los datos proporcionados son inválidos."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/attractions/{id}": {
@@ -126,6 +161,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -150,25 +195,31 @@
               }
             }
           },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
           "200": {
             "description": "Devuelve la atracción encontrada."
           },
           "404": {
             "description": "Si la atracción no existe."
           },
-          "401": {
-            "description": "Si el usuario no está autenticado."
-          },
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Attraction"
         ],
         "summary": "Elimina una atracción por su ID.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -179,31 +230,47 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
-          },
-          "204": {
-            "description": "Atracción eliminada exitosamente."
-          },
-          "404": {
-            "description": "Si la atracción no existe."
+            "description": "OK"
           },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
+          },
+          "204": {
+            "description": "Atracción eliminada exitosamente."
+          },
+          "404": {
+            "description": "Si la atracción no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "put": {
         "tags": [
           "Attraction"
         ],
         "summary": "Modifica una atracción existente.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -213,6 +280,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -257,16 +334,21 @@
               }
             }
           },
-          "404": {
-            "description": "Si la atracción no existe."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
+          },
+          "404": {
+            "description": "Si la atracción no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/attractions/{id}/incidents": {
@@ -275,6 +357,7 @@
           "Attraction"
         ],
         "summary": "Agrega un incidente a una atraccion.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>OPERATOR</span>",
         "parameters": [
           {
             "name": "id",
@@ -285,6 +368,16 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
           }
         ],
         "requestBody": {
@@ -292,17 +385,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentRequest"
+                "type": "string"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentRequest"
+                "type": "string"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/IncidentRequest"
+                "type": "string"
               }
             }
           }
@@ -311,22 +404,28 @@
           "200": {
             "description": "Incidente agregado existosamente."
           },
-          "404": {
-            "description": "Si la atracción no existe."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
+          },
+          "404": {
+            "description": "Si la atracción no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
           "Attraction"
         ],
         "summary": "Elimina un incidente de la atraccion.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>OPERATOR</span>",
         "parameters": [
           {
             "name": "id",
@@ -337,45 +436,112 @@
               "type": "string",
               "format": "uuid"
             }
-          }
-        ],
-        "requestBody": {
-          "description": "El incidente a eliminar.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IncidentRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IncidentRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/IncidentRequest"
-              }
+          },
+          {
+            "name": "incident",
+            "in": "query",
+            "description": "El incidente a eliminar.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Success"
-          },
-          "204": {
-            "description": "Incidente eliminado exitosamente."
-          },
-          "404": {
-            "description": "Si la atracción no existe."
+            "description": "OK"
           },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "204": {
+            "description": "Incidente eliminado exitosamente."
+          },
+          "404": {
+            "description": "Si la atracción no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/attractions/{id}/preventinve-maintenances": {
+      "post": {
+        "tags": [
+          "Attraction"
+        ],
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePreventiveMaintenanceRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePreventiveMaintenanceRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePreventiveMaintenanceRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "No autorizado - Token faltante o inválido"
+          },
+          "403": {
+            "description": "Prohibido - Permisos insuficientes"
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/attractions/{id}/visitors": {
@@ -384,6 +550,7 @@
           "AttractionControl"
         ],
         "summary": "Obtiene una lista de los IDs de los visitantes actualmente dentro de una atracción.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>OPERATOR</span>",
         "parameters": [
           {
             "name": "id",
@@ -393,6 +560,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -435,13 +612,19 @@
           "404": {
             "description": "Si no se encuentra un atraccion con ese ID."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
           "AttractionControl"
         ],
         "summary": "Registra la entrada de un visitante a una atracción.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>OPERATOR</span>",
         "parameters": [
           {
             "name": "id",
@@ -459,6 +642,16 @@
             "description": "Booleano que permite elegir entre entrar usando el qr del ticket (true) o usando el id del usuario (false).",
             "schema": {
               "type": "boolean"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -486,14 +679,14 @@
           "200": {
             "description": "Entrada registrada exitosamente."
           },
-          "400": {
-            "description": "Si el visitante no cumple los requisitos (ej. edad)."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Operador."
+          },
+          "400": {
+            "description": "Si el visitante no cumple los requisitos (ej. edad)."
           },
           "404": {
             "description": "Si la atracción, el ticket o el visitante no existen."
@@ -501,13 +694,19 @@
           "409": {
             "description": "Si la atraccion tiene incidentes o esta llena."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
           "AttractionControl"
         ],
         "summary": "Registra la salida de un visitante de una atracción con su id.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>OPERATOR</span>",
         "parameters": [
           {
             "name": "id",
@@ -518,28 +717,27 @@
               "type": "string",
               "format": "uuid"
             }
-          }
-        ],
-        "requestBody": {
-          "description": "El ID (GUID) del visitante.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdRequest"
-              }
+          },
+          {
+            "name": "visitorNfc",
+            "in": "query",
+            "description": "El NFC (GUID) del visitante.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Salida registrada exitosamente."
@@ -553,7 +751,12 @@
           "404": {
             "description": "Si no se encuentra un atraccion con ese ID."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/attractions/{id}/reports": {
@@ -562,6 +765,7 @@
           "AttractionControl"
         ],
         "summary": "Genera un reporte del número de usos de la atracción entre dos fechas.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -572,31 +776,37 @@
               "type": "string",
               "format": "uuid"
             }
-          }
-        ],
-        "requestBody": {
-          "description": "El rango de fechas (Desde/Hasta) para el reporte.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DateSpanRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/DateSpanRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/DateSpanRequest"
-              }
+          },
+          {
+            "name": "From",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "To",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
-        },
+        ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -619,12 +829,17 @@
             "description": "Si el usuario no está autenticado."
           },
           "403": {
-            "description": "Si el usuario no tiene el rol de Operador."
+            "description": "Si el usuario no tiene el rol de Admin."
           },
           "404": {
             "description": "Si no se encuentra un atraccion con ese ID."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/auth/login": {
@@ -683,20 +898,127 @@
         }
       }
     },
+    "/records": {
+      "get": {
+        "tags": [
+          "PointRecord"
+        ],
+        "summary": "Obtiene el historial de puntos de un usuario específico.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>VISITOR</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devuelve la lista de registros de puntos.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PointRecordResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PointRecordResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PointRecordResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Visitante.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
     "/ranking/strategies": {
       "get": {
         "tags": [
           "Ranking"
         ],
         "summary": "Obtiene las estrategias de puntuación disponibles o solo la que está activa.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
-            "name": "getActive",
+            "name": "active",
             "in": "query",
             "description": "Si es 'true', devuelve solo la estrategia activa. De lo contrario, devuelve todas.",
             "schema": {
-              "type": "boolean",
-              "nullable": true
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -736,7 +1058,12 @@
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/ranking": {
@@ -745,6 +1072,19 @@
           "Ranking"
         ],
         "summary": "Establece la estrategia de puntuación activa para el parque.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "requestBody": {
           "description": "El tipo de estrategia a activar.",
           "content": {
@@ -786,22 +1126,40 @@
               }
             }
           },
-          "400": {
-            "description": "Si el tipo de estrategia es inválido."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "400": {
+            "description": "Si el tipo de estrategia es inválido."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "get": {
         "tags": [
           "Ranking"
         ],
         "summary": "Obtiene la tabla de clasificación diaria de los visitantes con más puntos.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Devuelve el ranking diario.",
@@ -838,7 +1196,262 @@
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/rewards/{id}": {
+      "get": {
+        "tags": [
+          "Reward"
+        ],
+        "summary": "Obtiene una recompensa específica por su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "El ID (GUID) de la recompensa.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devuelve la recompensa encontrada.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRewardResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRewardResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetRewardResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "404": {
+            "description": "Si la recompensa no existe."
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/rewards": {
+      "get": {
+        "tags": [
+          "Reward"
+        ],
+        "summary": "Obtiene las recompensas del sistema.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devuelve todas las recompensas del sistema.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetRewardResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetRewardResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/GetRewardResponse"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "Reward"
+        ],
+        "summary": "Agrega una nueva recompensa al sistema.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Datos de la nueva recompensa a agregar.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRewardRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRewardRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateRewardRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usuario visitante creado exitosamente.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Operador."
+          },
+          "400": {
+            "description": "Si los datos son inválidos."
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/rewards/{rewardId}": {
+      "post": {
+        "tags": [
+          "Reward"
+        ],
+        "summary": "Canjea (compra) una recompensa usando los puntos del visitante.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>VISITOR</span>",
+        "parameters": [
+          {
+            "name": "rewardId",
+            "in": "path",
+            "description": "El ID (GUID) de la recompensa a canjear.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Canje realizado exitosamente."
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "403": {
+            "description": "Si el usuario no tiene el rol de Visitante."
+          },
+          "400": {
+            "description": "Si la recompensa no está disponible, el visitante no tiene puntos suficientes, o el ID del usuario no se encuentra."
+          },
+          "404": {
+            "description": "Si la recompensa no existe."
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/specialevents/{id}": {
@@ -847,6 +1460,7 @@
           "SpecialEvent"
         ],
         "summary": "Obtiene un evento especial específico por su ID.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -856,6 +1470,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -880,22 +1504,28 @@
               }
             }
           },
-          "404": {
-            "description": "Si el evento no existe."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "404": {
+            "description": "Si el evento no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
           "SpecialEvent"
         ],
         "summary": "Elimina un evento especial por su ID.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -906,25 +1536,40 @@
               "type": "string",
               "format": "uuid"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success"
-          },
-          "204": {
-            "description": "Evento eliminado exitosamente."
-          },
-          "404": {
-            "description": "Si el evento no existe."
+            "description": "OK"
           },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "204": {
+            "description": "Evento eliminado exitosamente."
+          },
+          "404": {
+            "description": "Si el evento no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/specialevents": {
@@ -933,6 +1578,18 @@
           "SpecialEvent"
         ],
         "summary": "Obtiene una lista de todos los eventos especiales.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Devuelve la lista de eventos.",
@@ -969,13 +1626,31 @@
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
           "SpecialEvent"
         ],
         "summary": "Crea un nuevo evento especial.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "requestBody": {
           "description": "Datos para el nuevo evento.",
           "content": {
@@ -1017,16 +1692,21 @@
               }
             }
           },
-          "400": {
-            "description": "Si los datos proporcionados son inválidos."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "400": {
+            "description": "Si los datos proporcionados son inválidos."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/specialevents/{id}/attractions": {
@@ -1035,6 +1715,7 @@
           "SpecialEvent"
         ],
         "summary": "Asigna una atracción a un evento especial.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -1044,6 +1725,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -1071,22 +1762,28 @@
           "200": {
             "description": "Atracción añadida al evento correctamente."
           },
-          "404": {
-            "description": "Si el evento o la atracción no existen."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "404": {
+            "description": "Si el evento o la atracción no existen."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "delete": {
         "tags": [
           "SpecialEvent"
         ],
         "summary": "Quita una atracción de un evento especial.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -1097,48 +1794,52 @@
               "type": "string",
               "format": "uuid"
             }
-          }
-        ],
-        "requestBody": {
-          "description": "El ID (GUID) de la atracción a quitar.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdRequest"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdRequest"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/IdRequest"
-              }
+          },
+          {
+            "name": "Id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Atracción quitada del evento correctamente."
-          },
-          "404": {
-            "description": "Si el evento o la atracción no existen."
           },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "404": {
+            "description": "Si el evento o la atracción no existen."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "get": {
         "tags": [
           "SpecialEvent"
         ],
         "summary": "Obtiene la lista de atracciones asociadas a un evento especial.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "parameters": [
           {
             "name": "id",
@@ -1148,6 +1849,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -1172,16 +1883,21 @@
               }
             }
           },
-          "404": {
-            "description": "Si el evento no existe."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Admin."
+          },
+          "404": {
+            "description": "Si el evento no existe."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/time": {
@@ -1192,7 +1908,7 @@
         "summary": "Obtiene la fecha y hora actual configurada en el sistema.",
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "content": {
               "text/plain": {
                 "schema": {
@@ -1271,6 +1987,19 @@
           "Ticket"
         ],
         "summary": "Permite a un visitante comprar un ticket para una fecha o evento especial.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>VISITOR</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "requestBody": {
           "description": "Datos de la compra del ticket, incluyendo ID de usuario y fecha.",
           "content": {
@@ -1312,22 +2041,82 @@
               }
             }
           },
-          "400": {
-            "description": "Si los datos son inválidos o no se puede comprar el ticket (ej. evento lleno)."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Visitante."
           },
+          "400": {
+            "description": "Si los datos son inválidos o no se puede comprar el ticket (ej. evento lleno)."
+          },
           "404": {
             "description": "Si la atracción o el evento no existen."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "Ticket"
+        ],
+        "summary": "Obtiene los tickets del usuario autenticado.",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>VISITOR</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devuelve los tickets del usuario.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "403": {
+            "description": "Prohibido - Permisos insuficientes"
+          },
+          "404": {
+            "description": "Si no se encuentra un usuario con el ID del autenticado."
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
-    "/users/sign-up": {
+    "/users/signUp": {
       "post": {
         "tags": [
           "User"
@@ -1389,6 +2178,18 @@
           "User"
         ],
         "summary": "Permite a un usuario autenticado modificar su propio perfil.",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "requestBody": {
           "description": "Datos del perfil a modificar.",
           "content": {
@@ -1436,13 +2237,31 @@
           "404": {
             "description": "Si el usuario no se encuentra."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "post": {
         "tags": [
           "User"
         ],
         "summary": "Permite a un administrador crear cualquier tipo de usuario (Admin, Operator, Visitor) (Admin).",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "requestBody": {
           "description": "Datos del nuevo usuario y sus roles.",
           "content": {
@@ -1465,13 +2284,7 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
-          },
-          "201": {
-            "description": "Usuario creado exitosamente por el administrador."
-          },
-          "400": {
-            "description": "Si los datos del usuario estan malformados (visitante con fecha de nacimiento nula o tipo de membresia invalida)."
+            "description": "OK"
           },
           "401": {
             "description": "Si el usuario no está autenticado."
@@ -1479,16 +2292,40 @@
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
           },
+          "201": {
+            "description": "Usuario creado exitosamente por el administrador."
+          },
+          "400": {
+            "description": "Si los datos del usuario estan malformados (visitante con fecha de nacimiento nula o tipo de membresia invalida)."
+          },
           "409": {
             "description": "Si ya existe usuario con email."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       },
       "get": {
         "tags": [
           "User"
         ],
         "summary": "Obtiene una lista de todos los usuarios del sistema (Admin).",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Devuelve la lista de todos los usuarios.",
@@ -1525,7 +2362,12 @@
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     },
     "/users/{id}": {
@@ -1534,6 +2376,7 @@
           "User"
         ],
         "summary": "Obtiene un usuario específico por su ID (Admin).",
+        "description": "<br/><br/>⚠️ <strong>ROL REQUERIDO:</strong> <span style='color:red; font-weight:bold;'>ADMIN</span>",
         "operationId": "GetUserById",
         "parameters": [
           {
@@ -1544,6 +2387,16 @@
             "schema": {
               "type": "string",
               "format": "uuid"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
             }
           }
         ],
@@ -1568,16 +2421,75 @@
               }
             }
           },
-          "404": {
-            "description": "Si no se encuentra un usuario con ese ID."
-          },
           "401": {
             "description": "Si el usuario no está autenticado."
           },
           "403": {
             "description": "Si el usuario no tiene el rol de Administrador."
+          },
+          "404": {
+            "description": "Si no se encuentra un usuario con ese ID."
           }
-        }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
+      }
+    },
+    "/users/me": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Obtiene los datos del usuario autenticado.",
+        "operationId": "GetCurrentUser",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "<b>Token JWT</b>. Formato: <code>Bearer {su_token}</code>",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "default": "Bearer "
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Devuelve los datos del usuario.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Si el usuario no está autenticado."
+          },
+          "404": {
+            "description": "Si no se encuentra un usuario con el ID del autenticado."
+          }
+        },
+        "security": [
+          {
+            "Bearer": [ ]
+          }
+        ]
       }
     }
   },
@@ -1655,31 +2567,25 @@
             "nullable": true
           },
           "minAge": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "capacity": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "visitorCount": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "description": {
             "type": "string",
             "nullable": true
           },
-          "incidents": {
+          "activeIncidents": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/IncidentResponse"
             },
             "nullable": true
           }
@@ -1713,18 +2619,58 @@
             "nullable": true
           },
           "minAge": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "capacity": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePreventiveMaintenanceRequest": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateRewardRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requiredLevel": {
             "type": "string",
             "nullable": true
           }
@@ -1779,20 +2725,6 @@
         },
         "additionalProperties": false
       },
-      "DateSpanRequest": {
-        "type": "object",
-        "properties": {
-          "from": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "to": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
       "GetEventResponse": {
         "type": "object",
         "properties": {
@@ -1815,6 +2747,36 @@
           "date": {
             "type": "string",
             "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetRewardResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "price": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "requiredLevel": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1897,12 +2859,15 @@
         },
         "additionalProperties": false
       },
-      "IncidentRequest": {
+      "IncidentResponse": {
         "type": "object",
         "properties": {
-          "incident": {
+          "description": {
             "type": "string",
             "nullable": true
+          },
+          "isMaintenance": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false
@@ -1933,16 +2898,12 @@
             "nullable": true
           },
           "minAge": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "capacity": {
-            "maximum": 4294967295,
-            "minimum": 0,
             "type": "integer",
-            "format": "int64"
+            "format": "int32"
           },
           "description": {
             "type": "string",
@@ -1983,6 +2944,47 @@
           }
         },
         "additionalProperties": false
+      },
+      "PointRecordResponse": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "points": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": { }
       },
       "SetActiveStrategyRequest": {
         "type": "object",
@@ -2026,7 +3028,7 @@
       "UserRankingResponse": {
         "type": "object",
         "properties": {
-          "fristName": {
+          "firstName": {
             "type": "string",
             "nullable": true
           },
@@ -2065,9 +3067,21 @@
             "type": "string",
             "format": "uuid",
             "nullable": true
+          },
+          "totalPoints": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "apiKey",
+        "description": "JWT Authorization header using the Bearer scheme. Example: \"Bearer 12345abcdef\"",
+        "name": "Authorization",
+        "in": "header"
       }
     }
   }
